@@ -1,0 +1,18 @@
+name: ""
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  if_merger:
+    name: "If have merger pull request to main"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout action
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "1.21"
+      - run: go version
