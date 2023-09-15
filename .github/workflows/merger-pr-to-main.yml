@@ -1,18 +1,23 @@
-name: ""
+name: "When push to develop branch or created PR to main"
 on:
   push:
     branches:
-      - main
+      - develop
   pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 jobs:
   if_merger:
     name: "If have merger pull request to main"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout action
-        uses: actions/checkout@v3
-
-      - uses: actions/setup-go@v4
-        with:
-          go-version: "1.21"
-      - run: go version
+      - uses: actions/checkout@v3
+      # - uses: actions/setup-go@v4
+      #   with:
+      #     go-version: "1.21"
+      - name: Run update permissions add-tag.sh
+        run: chmod +x ./.github/workflows/scripts/add-tag.sh
+      - name: Run add-tag.sh
+        run: |
+          ./.github/workflows/scripts/add-tag.sh

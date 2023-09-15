@@ -1,0 +1,23 @@
+name: Push code to branch
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: list item
+        run: ls -aHl
+      - name: push to feature/test branch
+        run: |
+          git config user.name "Test"
+          git config user.email "millomilk2022@gmail.com"
+          git checkout -b feature/test
+          echo "new file" >> test
+          git add .
+          git commit -m "feat: add test file"
+          git remote -v
+          git push origin feature/test
